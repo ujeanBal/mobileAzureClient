@@ -22,6 +22,10 @@ namespace FoodAppClient.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton btnAddItem { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIActivityIndicatorView WaitIndicator { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
             if (AddButton != null) {
@@ -32,6 +36,11 @@ namespace FoodAppClient.iOS
             if (btnAddItem != null) {
                 btnAddItem.Dispose ();
                 btnAddItem = null;
+            }
+
+            if (WaitIndicator != null) {
+                WaitIndicator.Dispose ();
+                WaitIndicator = null;
             }
         }
     }

@@ -43,7 +43,7 @@
                         <color key="backgroundColor" systemColor="opaqueSeparatorColor" colorSpace="custom" customColorSpace="sRGB" red="0.776470588235294" green="0.776470588235294" blue="0.784313725490196" alpha="1"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ITEM_CELL" id="79" customClass="CellImage" rowHeight="200" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="0.0" y="85" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="79" id="80" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="200"/>
@@ -64,8 +64,8 @@
                                                         <constraint id="58927" firstAttribute="width" constant="150"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" id="44054" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
-                                                    <rect key="frame" x="168" y="13" width="162" height="132"/>
+                                                <view contentMode="scaleToFill" id="44054" translatesAutoresizingMaskIntoConstraints="NO">
+                                                    <rect key="frame" x="168" y="13" width="162" height="142"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="44345" translatesAutoresizingMaskIntoConstraints="NO">
                                                             <rect key="frame" x="18" y="13" width="126" height="27.5"/>
@@ -85,6 +85,21 @@
                                                             <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="76367" translatesAutoresizingMaskIntoConstraints="NO">
+                                                            <rect key="frame" x="18" y="101.5" width="126" height="30"/>
+                                                            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                            <state key="normal" title="Remove">
+                                                                <color key="titleColor" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace" white="1" alpha="1"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <constraints>
+                                                                <constraint id="83378" firstAttribute="height" constant="30"/>
+                                                            </constraints>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint id="44494" firstItem="44471" firstAttribute="top" secondItem="44345" secondAttribute="bottom" constant="5"/>
@@ -97,6 +112,9 @@
                                                         <constraint id="65222" firstAttribute="trailingMargin" secondItem="44345" secondAttribute="trailing" constant="10"/>
                                                         <constraint id="65309" firstAttribute="trailingMargin" secondItem="44471" secondAttribute="trailing" constant="10"/>
                                                         <constraint id="65396" firstAttribute="trailingMargin" secondItem="44500" secondAttribute="trailing" constant="10"/>
+                                                        <constraint id="76408" firstItem="76367" firstAttribute="top" secondItem="44500" secondAttribute="bottom" constant="10"/>
+                                                        <constraint id="76413" firstItem="76367" firstAttribute="leading" secondItem="44054" secondAttribute="leadingMargin" constant="10"/>
+                                                        <constraint id="76417" firstAttribute="trailingMargin" secondItem="76367" secondAttribute="trailing" constant="10"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
@@ -134,6 +152,7 @@
                                     <outlet property="NameLbl" destination="44345" id="name-outlet-44345"/>
                                     <outlet property="KkalLbl" destination="44471" id="name-outlet-44471"/>
                                     <outlet property="WeightLbl" destination="44500" id="name-outlet-44500"/>
+                                    <outlet property="DeleteBtn" destination="76367" id="name-outlet-76367"/>
                                 </connections>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
@@ -149,6 +168,11 @@
                         </connections>
                         <color key="separatorColor" cocoaTouchSystemColor="darkTextColor"/>
                         <inset key="scrollIndicatorInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="79730" hidesWhenStopped="YES" hidden="YES" key="tableHeaderView" autoresizesSubviews="NO">
+                            <rect key="frame" x="0.0" y="35" width="414" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="color" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        </activityIndicatorView>
                     </tableView>
                     <navigationItem key="navigationItem" title="Items" id="104">
                         <barButtonItem key="rightBarButtonItem" id="2253">
@@ -164,6 +188,7 @@
                     <connections>
                         <outlet property="btnAddItem" destination="2252" id="name-outlet-2252"/>
                         <outlet property="AddButton" destination="104" id="name-outlet-104"/>
+                        <outlet property="WaitIndicator" destination="79730" id="name-outlet-79730"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="81" userLabel="First Responder" sceneMemberID="firstResponder"/>

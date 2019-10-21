@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using FoodAppClient.ViewModels;
@@ -13,8 +14,11 @@ namespace FoodAppClient.iOS
 
         private ItemsViewModel ViewModel => App.Locator.Main;
 
+        private IList<Binding> _bindings;
+
         public BrowseViewController(IntPtr handle) : base(handle)
         {
+            _bindings = new List<Binding>();
         }
 
         public override void ViewDidLoad()
@@ -27,6 +31,16 @@ namespace FoodAppClient.iOS
             TableView.Source = new ItemsDataSource(ViewModel);
             ViewModel.LoadItemsCommand.Execute(null);
             ViewModel.Items.CollectionChanged += Items_CollectionChanged;
+            _bindings.Add(this.SetBinding(() => ViewModel.IsBusy).WhenSourceChanges(SpinnerActivator));
+        }
+
+
+        private void SpinnerActivator()
+        {
+            if (ViewModel.IsBusy)
+                WaitIndicator.StartAnimating();
+            else
+            WaitIndicator.StopAnimating();
         }
 
         public override void ViewDidAppear(bool animated)
@@ -38,7 +52,7 @@ namespace FoodAppClient.iOS
 
         void Items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            InvokeOnMainThread(() => TableView.ReloadData()); 
+            InvokeOnMainThread(() => TableView.ReloadData());
         }
     }
 
@@ -54,7 +68,7 @@ namespace FoodAppClient.iOS
 
         public ItemsDataSource(ItemsViewModel viewModel)
         {
-            this.viewModel = viewModel;    
+            this.viewModel = viewModel;
         }
 
         public override nfloat GetHeightForHeader(UITableView tableView, nint section)
@@ -64,11 +78,10 @@ namespace FoodAppClient.iOS
 
         public override UIView GetViewForHeader(UITableView tableView, nint section)
         {
-
             var header = new UITableViewHeaderFooterView();
-            //          headerView.BackgroundColor = UIColor.FromRGB(173, 203, 209);
             header.TextLabel.TextColor = UIColor.FromRGB(64, 153, 171);
-            header.TextLabel.Text = String.Format("Total Kkalories {0}",viewModel.SumKkal.ToString("F", CultureInfo.InvariantCulture));
+            header.TextLabel.Text = String.Format("Total Kkalories {0}", viewModel.SumKkal.ToString("F", CultureInfo.InvariantCulture));
+
             return header;
         }
 
@@ -80,8 +93,8 @@ namespace FoodAppClient.iOS
         {
             var cell = tableView.DequeueReusableCell(CELL_IDENTIFIER, indexPath) as CellImage;
             var item = viewModel.Items[indexPath.Row];
-            cell.FillCell(item);
-  
+            cell.FillCell(item, viewModel.DeleteItemCommand);
+
             return cell;
         }
 

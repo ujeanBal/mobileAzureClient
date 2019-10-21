@@ -23,6 +23,8 @@ namespace FoodAppClient
 
         public RelayCommand<Food> AddItemCommand { get; set; }
 
+        public RelayCommand<Food> DeleteItemCommand { get; set; }
+
         public RelayCommand<FoodDetailViewModel> DetailNavigateCommand { get; set; }
 
         public RelayCommand NewNavigateCommand { get; set; }
@@ -33,6 +35,7 @@ namespace FoodAppClient
             Items = new ObservableCollection<Food>();
             LoadItemsCommand = new RelayCommand(async () => await ExecuteLoadItemsCommand());
             AddItemCommand = new RelayCommand<Food>(async (Food food) => await AddItem(food));
+            DeleteItemCommand = new RelayCommand<Food>(async (Food food) => await DeleteItem(food));
             DetailNavigateCommand = new RelayCommand<FoodDetailViewModel>(
                 (FoodDetailViewModel food) => DetailNavigate(food));
             NewNavigateCommand = new RelayCommand(() => NewNavigate());
@@ -103,13 +106,32 @@ namespace FoodAppClient
 
         async Task AddItem(Food item)
         {
+            IsBusy = true;
+
             Items.Add(item);
             await DataStore.AddItemAsync(item);
+
+            IsBusy = false;
+        }
+
+        async Task DeleteItem(Food item)
+        {
+            IsBusy = true;
+
+            Items.Remove(item);
+            await DataStore.DeleteItemAsync(item.Id);
+
+            IsBusy = false;
+
         }
 
         async Task UpdateItem(Food item)
         {
+            IsBusy = true;
+
             await DataStore.UpdateItemAsync(item);
+
+            IsBusy = false;
 
         }
     }
