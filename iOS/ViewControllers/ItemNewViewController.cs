@@ -21,11 +21,17 @@ namespace FoodAppClient.iOS
 
         private readonly ImageStringConverter _imageStringConverter;
 
-        public ItemNewViewController(IntPtr handle) : base(handle)
+        public ItemNewViewController(IntPtr handle) : this(SimpleIoc.Default.GetInstance<ImageStringConverter>(), handle)
         {
-            _imageStringConverter = new ImageStringConverter();
+        }
+
+        public ItemNewViewController(ImageStringConverter converter, IntPtr handle) : base(handle)
+        {
+            _imageStringConverter = converter;
             _bindings = new List<Binding>();
         }
+
+
 
         public override void ViewDidLoad()
         {
@@ -72,7 +78,7 @@ namespace FoodAppClient.iOS
         }
 
         void Handle_Canceled()
-        {         
+        {
             _imagePicker.DismissModalViewController(true);
         }
 

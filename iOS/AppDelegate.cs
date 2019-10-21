@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Views;
 using CoreGraphics;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
+using FoodAppClient.iOS.Helpers;
 
 namespace FoodAppClient.iOS
 {
@@ -30,6 +31,7 @@ namespace FoodAppClient.iOS
             nav.Initialize((UINavigationController)Window.RootViewController);
 
             SimpleIoc.Default.Register<INavigationService>(() => nav);
+            SimpleIoc.Default.Register<ImageStringConverter>();
 
             return true;
         }

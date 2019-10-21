@@ -7,6 +7,10 @@ namespace FoodAppClient.iOS.Helpers
 {
     public class ImageStringConverter
     {
+        public ImageStringConverter()
+        {
+
+        }
         public UIImage ConvertToUIImage(string bytesString)
         {
             if (bytesString == null)
