@@ -16,7 +16,7 @@ namespace FoodAppClient.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField bind { get; set; }
+        UIKit.UIButton btnChooseImg { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -29,6 +29,10 @@ namespace FoodAppClient.iOS
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITextField FatsField { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView imageView { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -52,9 +56,9 @@ namespace FoodAppClient.iOS
 
         void ReleaseDesignerOutlets ()
         {
-            if (bind != null) {
-                bind.Dispose ();
-                bind = null;
+            if (btnChooseImg != null) {
+                btnChooseImg.Dispose ();
+                btnChooseImg = null;
             }
 
             if (btnSaveItem != null) {
@@ -70,6 +74,11 @@ namespace FoodAppClient.iOS
             if (FatsField != null) {
                 FatsField.Dispose ();
                 FatsField = null;
+            }
+
+            if (imageView != null) {
+                imageView.Dispose ();
+                imageView = null;
             }
 
             if (PfcView != null) {

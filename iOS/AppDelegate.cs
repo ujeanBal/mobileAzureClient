@@ -26,9 +26,6 @@ namespace FoodAppClient.iOS
 
             var nav = new NavigationService();
 
-            //var navController = new UINavigationController(Window.RootViewController);
-          //  var storyboard = UIStoryboard.FromName("Main", NSBundle.MainBundle);
-
             nav.Configure(App.Locator.Details, App.Locator.Details);
             nav.Initialize((UINavigationController)Window.RootViewController);
 

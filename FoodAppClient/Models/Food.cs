@@ -6,40 +6,73 @@ namespace FoodAppClient.Models
 {
     public class Food : ObservableObject
     {
+
         public string Id { get; set; }
 
         private string _name = String.Empty;
 
-        private int _kkal;
+        private long _kkal;
 
-        private int _weight;
+        private long _weight;
 
-        [JsonProperty(PropertyName = "name")]
+        private long _proteins;
+
+        private long _fats;
+
+        private long _carbohydrates;
+
+        private string _image;
+
+        public string Image
+        {
+            get => this._image;
+            set => Set(ref _image, value, "Image");
+        }
+
         public string Name
         {
             get => this._name;
             set => Set(ref _name, value, "Name");
         }
 
-        [JsonProperty(PropertyName = "kkal")]
-        public int Kkal
+
+        public long Kkal
         {
             get => this._kkal;
             set => Set(ref _kkal, value, "Kkal");
         }
 
-        [JsonProperty(PropertyName = "weight")]
-        public int Weight
+        public long Weight
         {
             get => this._weight;
-            set => Set(ref _weight, value);
+            set => Set(ref _weight, value, "Weight");
         }
 
-        public PFC Description { get; set; }
+        public long Proteins
+        {
+            get => _proteins;
+            set => Set(ref _proteins, value, "Proteins");
+        }
+
+
+        public long Fats
+        {
+            get => _fats;
+            set => Set(ref _fats, value, "Fats");
+        }
+
+
+        public long Carbohydrates
+        {
+            get => _carbohydrates;
+            set => Set(ref _carbohydrates, value, "Carbohydrates");
+        }
+
+
 
         public Food()
         {
-            Description = new PFC();
+
         }
     }
 }

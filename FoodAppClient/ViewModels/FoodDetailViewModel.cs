@@ -33,9 +33,12 @@ namespace FoodAppClient.ViewModels
             SendToMainCommand = new RelayCommand<Food>((Food food) => SendMessageToAdd(food));
         }
 
+
         private void SendMessageToAdd(Food food)
         {
             MessengerInstance.Send(new NotificationMessage<Food>(food, ((int)ActionMsg).ToString()));
         }
+
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using FoodAppClient.iOS.ViewModel;
 using FoodAppClient.Models;
@@ -32,7 +33,8 @@ namespace FoodAppClient
             Items = new ObservableCollection<Food>();
             LoadItemsCommand = new RelayCommand(async () => await ExecuteLoadItemsCommand());
             AddItemCommand = new RelayCommand<Food>(async (Food food) => await AddItem(food));
-            DetailNavigateCommand = new RelayCommand<FoodDetailViewModel>((FoodDetailViewModel food) => DetailNavigate(food));
+            DetailNavigateCommand = new RelayCommand<FoodDetailViewModel>(
+                (FoodDetailViewModel food) => DetailNavigate(food));
             NewNavigateCommand = new RelayCommand(() => NewNavigate());
             _navigationService = navigationService;
             MessengerInstance.Register<NotificationMessage<Food>>(this, ParsingMessages);
@@ -79,7 +81,6 @@ namespace FoodAppClient
                 Items.Clear();
 
                 var items = await DataStore.GetItemsAsync(true);
-
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -95,6 +96,11 @@ namespace FoodAppClient
             }
         }
 
+        public double SumKkal
+        {
+            get => Items?.Count > 0 ? Items.Average(x => Convert.ToDouble(x.Kkal)) : 0;
+        }
+
         async Task AddItem(Food item)
         {
             Items.Add(item);
@@ -104,6 +110,7 @@ namespace FoodAppClient
         async Task UpdateItem(Food item)
         {
             await DataStore.UpdateItemAsync(item);
+
         }
     }
 }

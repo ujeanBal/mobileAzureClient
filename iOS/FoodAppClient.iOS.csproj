@@ -146,12 +146,14 @@
     <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\xamarin_logo%402x.png" />
     <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\xamarin_logo%403x.png" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\nofile.jpeg.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\nofile.jpeg.imageset\nofile.jpeg" />
+    <ImageAsset Include="Assets.xcassets\nofile.jpeg.imageset\nofile-1.jpeg" />
+    <ImageAsset Include="Assets.xcassets\nofile.jpeg.imageset\nofile-2.jpeg" />
+    <ImageAsset Include="Assets.xcassets\nofile.jpeg.imageset\nofile-3.jpeg" />
+    <ImageAsset Include="Assets.xcassets\nofile.jpeg.imageset\nofile-4.jpeg" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
-    <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.designer.cs">
-      <DependentUpon>BrowseItemDetailViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewControllers\BrowseViewController.cs" />
     <Compile Include="ViewControllers\BrowseViewController.designer.cs">
       <DependentUpon>BrowseViewController.cs</DependentUpon>
@@ -162,6 +164,11 @@
     </Compile>
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="CellImage.cs" />
+    <Compile Include="CellImage.designer.cs">
+      <DependentUpon>CellImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ImageStringConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -170,6 +177,14 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Assets.xcassets\nofile.jpeg.imageset\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\nofile.jpeg" />
   </ItemGroup>
   <Import Project="..\FoodAppClient\FoodAppClient.projitems" Label="Shared" Condition="Exists('..\FoodAppClient\FoodAppClient.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

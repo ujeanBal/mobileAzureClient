@@ -15,7 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloudFoodService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Food.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\PFC.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FoodDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\NotifycationType.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Globalization;
 using FoodAppClient.ViewModels;
 using Foundation;
 using GalaSoft.MvvmLight.Helpers;
@@ -9,7 +10,6 @@ namespace FoodAppClient.iOS
 {
     public partial class BrowseViewController : UITableViewController
     {
-        UIRefreshControl refreshControl;
 
         private ItemsViewModel ViewModel => App.Locator.Main;
 
@@ -33,38 +33,12 @@ namespace FoodAppClient.iOS
         {
             base.ViewDidAppear(animated);
 
-            if (ViewModel.Items.Count == 0)
-                ViewModel.LoadItemsCommand.Execute(null);
-        }
-
-        void RefreshControl_ValueChanged(object sender, EventArgs e)
-        {
-            if (!ViewModel.IsBusy && refreshControl.Refreshing)
-                ViewModel.LoadItemsCommand.Execute(null);
-        }
-
-        void IsBusy_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            var propertyName = e.PropertyName;
-            switch (propertyName)
-            {
-                case nameof(ViewModel.IsBusy):
-                    {
-                        InvokeOnMainThread(() =>
-                        {
-                            if (ViewModel.IsBusy && !refreshControl.Refreshing)
-                                refreshControl.BeginRefreshing();
-                            else if (!ViewModel.IsBusy)
-                                refreshControl.EndRefreshing();
-                        });
-                    }
-                    break;
-            }
+            InvokeOnMainThread(() => TableView.ReloadData());
         }
 
         void Items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            InvokeOnMainThread(() => TableView.ReloadData());
+            InvokeOnMainThread(() => TableView.ReloadData()); 
         }
     }
 
@@ -72,11 +46,30 @@ namespace FoodAppClient.iOS
     {
         static readonly NSString CELL_IDENTIFIER = new NSString("ITEM_CELL");
 
+        private const int heightHeader = 50;
+
+        private const int heightRow = 200;
+
         public ItemsViewModel viewModel;
 
         public ItemsDataSource(ItemsViewModel viewModel)
         {
-            this.viewModel = viewModel;
+            this.viewModel = viewModel;    
+        }
+
+        public override nfloat GetHeightForHeader(UITableView tableView, nint section)
+        {
+            return heightHeader;
+        }
+
+        public override UIView GetViewForHeader(UITableView tableView, nint section)
+        {
+
+            var header = new UITableViewHeaderFooterView();
+            //          headerView.BackgroundColor = UIColor.FromRGB(173, 203, 209);
+            header.TextLabel.TextColor = UIColor.FromRGB(64, 153, 171);
+            header.TextLabel.Text = String.Format("Total Kkalories {0}",viewModel.SumKkal.ToString("F", CultureInfo.InvariantCulture));
+            return header;
         }
 
         public override nint RowsInSection(UITableView tableview, nint section) => viewModel.Items.Count;
@@ -85,15 +78,16 @@ namespace FoodAppClient.iOS
 
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
-            var cell = tableView.DequeueReusableCell(CELL_IDENTIFIER, indexPath);
-
+            var cell = tableView.DequeueReusableCell(CELL_IDENTIFIER, indexPath) as CellImage;
             var item = viewModel.Items[indexPath.Row];
-
-            cell.TextLabel.Text = item.Name;
-            cell.DetailTextLabel.Text = item.Kkal.ToString();
-            cell.LayoutMargins = UIEdgeInsets.Zero;
-
+            cell.FillCell(item);
+  
             return cell;
+        }
+
+        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+        {
+            return heightRow;
         }
 
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
