@@ -101,7 +101,7 @@ namespace FoodAppClient
 
         public double SumKkal
         {
-            get => Items?.Count > 0 ? Items.Average(x => Convert.ToDouble(x.Kkal)) : 0;
+            get => Items?.Count > 0 ? Items.Sum(x => Convert.ToDouble(x.Kkal)) : 0;
         }
 
         async Task AddItem(Food item)
